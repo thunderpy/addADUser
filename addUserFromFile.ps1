@@ -21,11 +21,11 @@ ForEach ($user in $csv){
     $lastName = $user.LastName
     $Name = $firstName + " " + $lastName
     $GivenName = $Name.Split(" ")[0]
-    $AccountPassword = (ConvertTo-SecureString "mitr@2018" -AsPlainText -Force)
-    $EmailAddress = $Name.Split(" ")[0].ToLower() + $Name.Split(" ")[1].ToLower()[0] + "@mitrmedia.com"
+    $AccountPassword = (ConvertTo-SecureString "password" -AsPlainText -Force)
+    $EmailAddress = $Name.Split(" ")[0].ToLower() + $Name.Split(" ")[1].ToLower()[0] + "@company.com"
     $Surname = $Name.Split(" ")[1]
     $SamAccountName = $Name.Split(" ")[0].ToLower() + $Name.Split(" ")[1].ToLower()[0]
-    $UserPrincipalName = $Name.Split(" ")[0].ToLower() + $Name.Split(" ")[1].ToLower()[0] + "@MITRMUM.COM"
+    $UserPrincipalName = $Name.Split(" ")[0].ToLower() + $Name.Split(" ")[1].ToLower()[0] + "@COMPANY.COM"
 
     # check if user exist in AD
     if (Get-ADUser -F {SamAccountName -eq $SamAccountName})
@@ -37,7 +37,7 @@ ForEach ($user in $csv){
     else{
 
         #User does not exist create new account
-        New-ADUser -Name $Name -GivenName $GivenName -PasswordNeverExpires $True -AccountPassword (ConvertTo-SecureString "mitr@2019" -AsPlainText -Force) -CannotChangePassword $True -DisplayName $Name -EmailAddress $EmailAddress -Surname $Surname -SamAccountName $SamAccountName -UserPrincipalName $UserPrincipalName -Enabled $True
+        New-ADUser -Name $Name -GivenName $GivenName -PasswordNeverExpires $True -AccountPassword (ConvertTo-SecureString "password" -AsPlainText -Force) -CannotChangePassword $True -DisplayName $Name -EmailAddress $EmailAddress -Surname $Surname -SamAccountName $SamAccountName -UserPrincipalName $UserPrincipalName -Enabled $True
 		
     }
 
